@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 
 export const registerSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
+  fullName: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string()
-    .matches(/^[0-9]{10,15}$/, "Phone number is not valid")
+  phoneNumber: Yup.string()
+    .matches(/^\+?[1-9][0-9]{7,14}$/, "Phone number is not valid")
     .required("Phone number is required"),
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
