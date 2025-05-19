@@ -1,17 +1,26 @@
 import { useState, useEffect } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
 import logo from "../../assets/logo.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { useAppContext } from "../../hooks/useAppContext";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-
+  const redirect = useNavigate();
+  const { user, logout } = useAppContext();
+  const handleLogout = () => {
+    logout();
+    redirect("/login");
+  };
+  const extractFirstName = (name) => {
+   return name.split(" ")[0];
+  };
   // Check screen size and toggle sidebar accordingly
   useEffect(() => {
     const handleResize = () => {
@@ -28,7 +37,6 @@ const DashboardLayout = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -132,22 +140,25 @@ const DashboardLayout = () => {
           <nav className="flex bg-white py-3 px-4 items-center justify-between sticky top-0 z-10">
             <div>
               <h1 className="font-light text-xl">
-                Welcome Back, <span className="font-medium">Farid</span>
+                Welcome Back,{" "}
+                <span className="font-medium">
+                  {extractFirstName(user.fullName)}
+                </span>
               </h1>
             </div>
             <div className="flex items-center space-x-4 relative">
               <div className="  flex items-center justify-center gap-2.5">
                 <img
-                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fHww"
+                  src={user.profilePicture}
                   alt="pic"
                   className="rounded-full object-cover h-9 w-9"
                 />
                 <div>
                   <h2 className="hidden md:block font-bold text-[14px] ">
-                    Ahmed Farid
+                    {user.fullName}
                   </h2>
                   <p className="hidden md:block text-[#666666] font-light">
-                    Olafarid12@gmail.com
+                    {user.email}
                   </p>
                 </div>
                 <button
@@ -162,7 +173,10 @@ const DashboardLayout = () => {
                 </button>
               </div>
               {showLogout && (
-                <button className="absolute btn bg-red-500 text-white top-16 right-4 z-10">
+                <button
+                  onClick={handleLogout}
+                  className="absolute btn bg-red-500 text-white top-16 right-4 z-10"
+                >
                   Logout
                 </button>
               )}

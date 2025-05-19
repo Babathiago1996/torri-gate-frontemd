@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { axiosInstance } from "../../utils/axiosInstance";
+import { useAppContext } from "../../hooks/useAppContext";
 
 const Nav = ({ bg }) => {
   const [showLogout, setShowLogout] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {user, logout}=useAppContext()
+  const redirect=useNavigate()
+  const handleLogout=()=>{
+    logout()
+    redirect("/login")
+  }
+  
   return (
     <nav className={bg ? `${bg}` : "bg-[#00000042]"}>
       <div className="navbar  text-white lg:h-[80px] layout">
@@ -29,7 +37,7 @@ const Nav = ({ bg }) => {
                 />{" "}
               </svg>
             </div>
-            {isLoggedIn ? (
+            {user ? (
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-black rounded-box z-1 mt-3 w-52 p-2 shadow"
@@ -58,7 +66,7 @@ const Nav = ({ bg }) => {
                 <li>
                   <Link to="/contact">Contact</Link>
                 </li>
-                {!isLoggedIn && (
+                {!user && (
                   <>
                     <li>
                       <Link to="/login">Explore Property</Link>
@@ -96,7 +104,7 @@ const Nav = ({ bg }) => {
             <li>
               <Link to="/contact">Contact</Link>
             </li>
-            {!isLoggedIn && (
+            {!user && (
               <>
                 <li>
                   <Link to="/login">Explore Property</Link>
@@ -108,11 +116,11 @@ const Nav = ({ bg }) => {
             )}
           </ul>
         </div>
-        {isLoggedIn ? (
+        {user ? (
           <div className="navbar-end flex items-center space-x-4 relative">
             <div className="  flex items-center justify-center gap-2.5">
               <img
-                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fHww"
+                src={user.profilePicture}
                 alt="pic"
                 className="rounded-full object-cover h-9 w-9"
               />
@@ -129,7 +137,7 @@ const Nav = ({ bg }) => {
               </button>
             </div>
             {showLogout && (
-              <button className="absolute btn bg-red-500 text-white top-16 right-4 z-10">
+              <button onClick={handleLogout}  className="absolute btn bg-red-500 text-white top-16 right-4 z-10">
                 Logout
               </button>
             )}
