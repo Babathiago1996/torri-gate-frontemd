@@ -12,6 +12,19 @@ const VerifyEmail = () => {
     // const redirect=useNavigate
     const [errorMsg, setErrorMsg]=useState("")
     const [status, setStatus]=useState("verifying")
+    const [email,setEmail]=useState("")
+    const [feedback, setFeedback]=useState("")
+const handleResendEmail=async()=>{
+  try {
+    const response=await axiosInstance.post("/auth/resend-email",{email})
+    if(response.status===200){
+setFeedback("Email sent")
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
     const CheckToken=async()=>{
 try {
     const response=await axiosInstance.post(`/auth/verify-email/${token}`, {token})
@@ -21,10 +34,11 @@ setStatus("success")
 } catch (error) {
     setErrorMsg("Email Verification Failed")
     setStatus(error)
+    setEmail(error?.response?.data?.email)
 }
     }
     useEffect(()=>{
-        // CheckToken()
+        CheckToken()
     }, [])
     if(status==="verifying"){
         return (
@@ -51,12 +65,13 @@ setStatus("success")
       </div>;
     }
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen bg-[#fbfbfb]">
     <div className='w-full max-w-[505px] py-[29px] px-[26px] shadow-md text-center'>
-<MdCancel size={40} className='mx-auto text-red-500'/>        
+<MdCancel size={80} className='mx-auto text-red-500'/> 
+<p className='bg-green-100 text-green-900 py-1.5 px-3 rounded-lg'>{feedback}</p>       
   <h1 className='text-xl lg:text-[30px] font-semibold my-3'>Verification Failed</h1>
         <p className='text-[#666] mb-4'>Invalid or expired Token</p>
-        <button className='w-full font-semibold rounded-xl  bg-[#0c0c0c] text-white h-[56px]'>Resend Verification</button>
+        <button onClick={handleResendEmail} className='w-full font-semibold rounded-xl  bg-[#0c0c0c] text-white h-[56px]'>Resend Verification</button>
     </div>
   </div>
   )
