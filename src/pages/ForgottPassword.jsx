@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState  } from 'react'
 import AuthWrapper from '../components/layout/AuthWrapper'
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -6,18 +6,34 @@ import { forgotPasswordSchema } from '../utils/formValidator';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { axiosInstance } from '../utils/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import { PiWarningCircle } from "react-icons/pi";
+
 
 const ForgottPassword = () => {
   const [isSubmitting, setIsSubmitting]=useState(false)
+  const [errorMessage, setErrorMessage]=useState("")
   const {register,handleSubmit,formState:{errors}}=useForm({resolver:yupResolver(forgotPasswordSchema)})
-  const handleForgotPassword=(data)=>{
+  const redirect=useNavigate()
+  const handleForgotPassword=async(data)=>{
     setIsSubmitting(true)
     try {
+      const response=await axiosInstance.post("/auth/forgot-password", {...data})
+      if(response.status===200){
+        // redirect to the assignment passge
+        localStorage.setItem("email", data.email)
+        redirect("/check-email")
+      }
       console.log(data)
     } catch (error) {
       console.log(error)
+      setErrorMessage(error?.response?.data?.message)
+    }finally{
+      setIsSubmitting(false)
     }
-  }
+  };
+    
+  
   return (
     <AuthWrapper>
       <div className="bg-white py-[29px] px-[26px] rounded-lg shadow-lg w-full lg:w-[505px]">
@@ -32,7 +48,7 @@ const ForgottPassword = () => {
         </div>
         <form onSubmit={handleSubmit(handleForgotPassword)}>
           <label htmlFor="email" className="label">
-            Email<sup className="text-red-500">*</sup>
+            Email<sup className="text-red-500 mb-1.5">*</sup>
           </label>
           <input
             type="email "
@@ -44,6 +60,12 @@ const ForgottPassword = () => {
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
+           {errorMessage && (
+                    <div className="w-full rounded-xl py-2 my-2.5 px-4 bg-[#FF37370D] border border-[#ff3737] text-[#ff3737] flex items-center gap-3">
+                      <PiWarningCircle size={22} />
+                      <p>{errorMessage}</p>
+                    </div>
+                  )}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -64,5 +86,6 @@ const ForgottPassword = () => {
     </AuthWrapper>
   );
 }
+
 
 export default ForgottPassword

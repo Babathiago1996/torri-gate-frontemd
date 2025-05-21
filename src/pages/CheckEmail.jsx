@@ -32,7 +32,7 @@ const CheckEmail = () => {
             <span className="font-semibold ml-1 text-black-300  mr-1">{email}</span>
              for instructions to reset your password.
           </p>
-          <button type='submit' className="btn w-full  font-semibold mt-5 text-black">Resend Mail</button>
+          <Link to="/forgot-password" className='font-semibold mt-2.5 btn btn-active text-black w-full'>Didn't get a link, resend mail</Link>
         </div>
       </div>
     </AuthWrapper>
