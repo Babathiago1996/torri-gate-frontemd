@@ -9,7 +9,7 @@ import SuspenseLoader from "./SuspenseLoader";
 // };
 
 const ProtectedRoute = ({ allowedRoles }) => {
-  const {user, loading}=useAppContext
+  const {user, loading}=useAppContext()
   // const user = getUser();
   if(loading){
     return<SuspenseLoader/>
