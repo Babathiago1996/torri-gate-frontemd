@@ -1,6 +1,7 @@
 import React from "react";
 import { TbCircleDotFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../hooks/useAppContext";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,6 +33,7 @@ const Profile = () => {
     resolver: yupResolver(validationSchema),
   });
   const [isEditable, setIsEditable] = useState(false);
+  const {user}=useAppContext()
 
   const handleClick = () => {
     setIsEditable(true);
@@ -61,8 +63,8 @@ const Profile = () => {
         >
           <div className="lg:flex-row flex justify-between flex-col ">
             <img
-              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fHww"
-              alt="girl picture"
+              src={user.profilePicture}
+              alt="picture"
               className="h-[140px] w-[142px] rounded-full object-cover"
             />
             <div className="flex flex-col justify-between  ">
@@ -84,7 +86,7 @@ const Profile = () => {
             </label>
             <input
               type="text"
-              placeholder="Farid Ahmed"
+              placeholder={user.fullName}
               className={`bg-[#fbfbfb] w-full h-[45px] text-black px-2 outline-0  ${
                 errors.fullName ? "border border-red-500" : ""
               }`}
@@ -102,7 +104,7 @@ const Profile = () => {
             </label>
             <input
               type="email"
-              placeholder="olafarid12@gmail.com"
+              placeholder={user.email}
               className={`bg-[#fbfbfb] w-full h-[45px]  text-black px-2 outline-0 ${
                 errors.email ? "border border-red-500" : ""
               }`}
@@ -120,7 +122,7 @@ const Profile = () => {
             </label>
             <input
               type="tel"
-              placeholder="+234 902 573 0919"
+              placeholder={user.phoneNumber}
               className={`bg-[#fbfbfb] w-full h-[45px]  text-black px-2 outline-0 ${
                 errors.tel1 ? "border border-red-500" : ""
               }`}
@@ -130,7 +132,7 @@ const Profile = () => {
             <p className="text-red-500">{errors.tel1 && errors.tel1.message}</p>
           </div>
 
-          <div className="my-[20px] mx-3">
+          {/* <div className="my-[20px] mx-3">
             <label htmlFor="phone2" className="block text-black text-[14px]">
               Phone Number2
             </label>
@@ -146,14 +148,23 @@ const Profile = () => {
             {errors.tel2 && (
               <p className="text-red-500">{errors.tel2.message}</p>
             )}
-          </div>
+          </div> */}
           {isEditable && (
-            <button
-              type="submit"
-              className="mt-4 bg-black text-white py-2 px-4 rounded"
-            >
-              Save Changes
-            </button>
+            <div className="flex-gap-2 items-center">
+              <button
+                type="submit"
+                className="mt-4 bg-black text-white py-2 px-4 rounded"
+              >
+                Save Changes
+              </button>
+              <button
+                type="button"
+                onClick={() => {setIsEditable(false); reset()}}
+                className="mt-4 bg-black text-white py-2 px-4 rounded"
+              >
+                Save Changes
+              </button>
+            </div>
           )}
         </form>
       </div>
