@@ -132,23 +132,7 @@ const Profile = () => {
             <p className="text-red-500">{errors.tel1 && errors.tel1.message}</p>
           </div>
 
-          {/* <div className="my-[20px] mx-3">
-            <label htmlFor="phone2" className="block text-black text-[14px]">
-              Phone Number2
-            </label>
-            <input
-              type="tel"
-              placeholder="--------"
-              className={`bg-[#fbfbfb] w-full h-[45px]  text-black px-2 outline-0 ${
-                errors.tel2 ? "border border-red-500" : ""
-              }`}
-              {...register("tel2")}
-              readOnly={!isEditable}
-            />
-            {errors.tel2 && (
-              <p className="text-red-500">{errors.tel2.message}</p>
-            )}
-          </div> */}
+         
           {isEditable && (
             <div className="flex-gap-2 items-center">
               <button
