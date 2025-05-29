@@ -7,6 +7,7 @@ import SimilarProperty from "../components/SimilarProperty";
 import DetailOfProperty from "../components/DetailOfProperty";
 
 const PropertyDetail = () => {
+  
   return (
     <div>
       <Nav bg={"bg-black"} />
