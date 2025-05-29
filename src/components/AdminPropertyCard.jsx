@@ -93,13 +93,13 @@ const AdminPropertyCard = ({
         {showDropdown && (
           <div className="absolute top-8 right-0 bg-white border rounded-md shadow-md z-10">
             <button
-              onClick={() => handleStatusChange("rented", _Id)}
+              onClick={() => handleStatusChange("rented", _id)}
               className="block w-full text-left px-4 py-2 hover:bg-gray-100"
             >
               Rented
             </button>
             <button
-              onClick={() => handleStatusChange("available", _Id)}
+              onClick={() => handleStatusChange("available", _id)}
               className="block w-full text-left px-4 py-2 hover:bg-gray-100"
             >
               Available
