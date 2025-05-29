@@ -7,6 +7,7 @@ import SuspenseLoader from "../components/SuspenseLoader";
 import { axiosInstance } from "../utils/axiosInstance";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../hooks/useAppContext";
+import EmptyLandlord from "../components/EmptyLandlord";
 
 const Dashboard = () => {
   const [isLoading, SetisLoading] = useState(true);
@@ -43,9 +44,7 @@ const Dashboard = () => {
   }
   if (!isLoading && total === 0) {
     return (
-      <div>
-        <h1>No Properties Found</h1>
-      </div>
+      <EmptyLandlord/>
     );
   }
   return (

@@ -23,6 +23,7 @@ const ResetPassword=lazy(()=>import("./pages/ResetPassword"))
 import VerifyEmail from "./pages/VerifyEmail";
 import CheckEmail from "./pages/CheckEmail";
 import ProtectedRoute from "./components/ProtectedRoute";
+import EmptyLandlord from "./components/EmptyLandlord";
 
 
 function App() {

@@ -8,6 +8,7 @@ import { axiosInstance } from "../utils/axiosInstance";
 import SuspenseLoader from "../components/SuspenseLoader";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../hooks/useAppContext";
+import EmptyLandlord from "../components/EmptyLandlord";
 const AdminProperty = () => {
   const [isLoading, SetisLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -16,6 +17,7 @@ const AdminProperty = () => {
   const [totalpages, setTotalPages] = useState(0);
   const [available, setAvailable]=useState(0)
   const [rented, setRented]=useState(0)
+  
 
   const { token } = useAppContext();
   const fetchProperties = async () => {
@@ -48,9 +50,7 @@ const AdminProperty = () => {
     }
     if (!isLoading && total === 0) {
       return (
-        <div>
-          <h1>No Properties Found</h1>
-        </div>
+       <EmptyLandlord/>
       );
     }
   return (
