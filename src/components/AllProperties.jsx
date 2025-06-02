@@ -1,8 +1,20 @@
 import React from "react";
 import { properties } from "../data";
 import FeaturedPropertyCard from "./FeaturedPropertyCard";
+import { useTenantContext } from "../hooks/useTenantContext";
+import SuspenseLoader from "./SuspenseLoader";
 
 const AllProperties = () => {
+  const { isLoading, properties } = useTenantContext();
+  console.log(properties);
+  
+
+  if(isLoading){
+    return <SuspenseLoader/>
+  }
+  if(!isLoading && properties.length === 0){
+    return <EmptyTenant/>
+  }
   return (
     <div className="layout py-10">
       <div className="flex items-center justify-between">

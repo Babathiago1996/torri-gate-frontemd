@@ -24,6 +24,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import CheckEmail from "./pages/CheckEmail";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EmptyLandlord from "./components/EmptyLandlord";
+import EmptyTenant from "./components/EmptyTenant";
 
 
 function App() {

@@ -4,7 +4,7 @@ import Nav from "./layout/Nav";
 
 const Hero = () => {
   return (
-    <div className="heropage max-h-[720px] h-screen pb-8 ">
+    <div className="heropage lg:max-h-[720px] h-auto pb-8 ">
       <Nav />
       <div className="layout pt-24">
         <div className="  flex justify-center items-end ">
