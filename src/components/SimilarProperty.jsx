@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { properties } from "../data";
 import FeaturedPropertyCard from "./FeaturedPropertyCard";
 
-const SimilarProperty = () => {
+const SimilarProperty = ({similar}) => {
   return (
     <div className="py-10 layout">
       <div className="flex items-center justify-between">
@@ -18,7 +18,7 @@ const SimilarProperty = () => {
         </Link>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2.5 place-items-center">
-        {properties.slice(0, 3).map((property) => {
+        {similar.map((property) => {
           return <FeaturedPropertyCard key={property._id} {...property} />;
         })}
       </div>

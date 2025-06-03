@@ -20,7 +20,7 @@ const TenantProvider = ({ children }) => {
     if (token) {
       try {
         SetisLoading(true)
-        const { data } = await axiosInstance.get(`/property?page=${page}&location=${locValue}&budget=${budget}&Type=${Type}`, {
+        const { data } = await axiosInstance.get(`/property?page=${page}&location=${locValue}&budget=${budget}&type=${Type}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(data);

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate,Link } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { IoPersonOutline } from "react-icons/io5";
+import { PiUserSwitch } from "react-icons/pi";
 import logo from "../../assets/logo.png";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useAppContext } from "../../hooks/useAppContext";
@@ -127,6 +128,15 @@ const DashboardLayout = () => {
                       <IoPersonOutline size={22} />
                       Profile
                     </NavLink>
+                  </li>
+                  <li className="mb-2">
+                    <Link
+                      to="/home"
+                       className="px-4 py-2 flex items-center gap-3"
+                    >
+                      <PiUserSwitch size={22} />
+                      Switch To Tenant
+                    </Link>
                   </li>
                 </ul>
               </nav>
