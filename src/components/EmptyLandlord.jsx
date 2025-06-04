@@ -1,5 +1,5 @@
 import React from "react";
-import vector from "../assets/vector.png";
+import vector from "../assets/Vector.png";
 import { Link } from "react-router-dom";
 import { MdOutlineAddHome } from "react-icons/md";
 const EmptyLandlord = () => {
