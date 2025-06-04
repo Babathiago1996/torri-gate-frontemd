@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const redirect=useNavigate()
+  const redirect = useNavigate();
   const [isLoading, SetisLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [properties, setProperties] = useState([]);
@@ -27,16 +27,16 @@ const Dashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(data);
-const {data}=response
+
+      const { data } = response;
       setProperties(data.properties);
       setPage(data.currentPage);
       setTotalPages(data.totalPages);
       setTotal(data.total);
-      SetisLoading(false)
-      if(response.status===401){
-        toast.warning("session expired")
-        redirect("/login")
+      SetisLoading(false);
+      if (response.status === 401) {
+        toast.warning("session expired");
+        redirect("/login");
       }
     } catch (error) {
       console.log(error);
@@ -50,9 +50,7 @@ const {data}=response
     return <SuspenseLoader />;
   }
   if (!isLoading && total === 0) {
-    return (
-      <EmptyLandlord/>
-    );
+    return <EmptyLandlord />;
   }
   return (
     <section className="max-w-[1157px]">

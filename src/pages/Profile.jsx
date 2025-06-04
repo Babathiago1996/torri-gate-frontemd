@@ -17,7 +17,7 @@ const validationSchema = yup.object().shape({
 });
 
 const Profile = () => {
-  const redirect=useNavigate()
+  const redirect = useNavigate();
   const { user, token, updateUser } = useAppContext();
 
   const {
@@ -75,10 +75,10 @@ const Profile = () => {
         updateUser(response.data.user);
         toast.success("Profile updated successfully");
         setIsEditable(false);
-         if(response.status===401){
-                      toast.warning("session expired")
-                      redirect("/login")
-                    }
+        if (response.status === 401) {
+          toast.warning("session expired");
+          redirect("/login");
+        }
       }
     } catch (error) {
       console.error(error);
@@ -220,4 +220,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile;

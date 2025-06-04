@@ -17,9 +17,9 @@ const AdminProperty = () => {
   const [properties, setProperties] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalpages, setTotalPages] = useState(0);
-  const [available, setAvailable]=useState(0)
-  const [rented, setRented]=useState(0)
-  const redirect=useNavigate()
+  const [available, setAvailable] = useState(0);
+  const [rented, setRented] = useState(0);
+  const redirect = useNavigate();
 
   const { token } = useAppContext();
   const fetchProperties = async () => {
@@ -30,37 +30,34 @@ const AdminProperty = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(data);
-const {data}=response
+
+      const { data } = response;
       setProperties(data.properties);
       setPage(data.currentPage);
       setTotalPages(data.totalPages);
       setTotal(data.total);
-      setAvailable(data.availableProperties)
-      setRented(data.rentedProperties)
+      setAvailable(data.availableProperties);
+      setRented(data.rentedProperties);
       SetisLoading(false);
 
-      if(response.status===401){
-        toast.warning("session expired")
-        redirect("/login")
+      if (response.status === 401) {
+        toast.warning("session expired");
+        redirect("/login");
       }
     } catch (error) {
       console.log(error);
-      
     }
   };
-   useEffect(() => {
-      fetchProperties();
-    }, [page]);
-  
-    if (isLoading) {
-      return <SuspenseLoader />;
-    }
-    if (!isLoading && total === 0) {
-      return (
-       <EmptyLandlord/>
-      );
-    }
+  useEffect(() => {
+    fetchProperties();
+  }, [page]);
+
+  if (isLoading) {
+    return <SuspenseLoader />;
+  }
+  if (!isLoading && total === 0) {
+    return <EmptyLandlord />;
+  }
   return (
     <div>
       <div className="flex items-center justify-between my-5">
@@ -88,7 +85,9 @@ const {data}=response
       </div>
       <div className="flex flex-col gap-3.5 lg:flex-row items-center mt-6 mb-10">
         <div className="w-full lg:w-[274.25px] ">
-          <h2 className="pl-3.5 mb-3 font-medium text-[16px] text-[#666]">Total Properties</h2>
+          <h2 className="pl-3.5 mb-3 font-medium text-[16px] text-[#666]">
+            Total Properties
+          </h2>
           <div className="w-full bg-white rounded-lg flex items-center h-[80px] pl-3.5">
             <h1 className="font-semibold text-2xl">{total}</h1>
           </div>
